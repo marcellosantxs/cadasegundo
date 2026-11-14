@@ -7,7 +7,7 @@ let customMessage = "Sthefany, construir meus dias ao seu lado é a melhor escol
 // Dica: Para colocar a foto de vocês, basta subir uma foto chamada 'foto.jpg' 
 // no mesmo repositório do GitHub ou colar o link direto de uma foto de vocês aqui embaixo.
 let photos = [
-    { url: "IMG_2492.jpeg", caption: "Nosso amor, nossa história ❤️" }
+    { url: "foto.jpg", caption: "Nosso amor, nossa história ❤️" }
 ];
 
 let currentPhotoIndex = 0;
