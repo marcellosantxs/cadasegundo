@@ -1,0 +1,357 @@
+/* Variáveis e Cores Globais */
+:root {
+    --bg-color: #0f051d;
+    --card-bg: rgba(255, 255, 255, 0.05);
+    --border-color: rgba(255, 105, 180, 0.2);
+    --primary-pink: #ff2a85;
+    --secondary-pink: #ff758c;
+    --text-color: #ffffff;
+    --text-muted: #d1cbdc;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    background-image: radial-gradient(circle at 50% 20%, #2b0c3f 0%, var(--bg-color) 80%);
+    font-family: 'Poppins', sans-serif;
+    color: var(--text-color);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    padding: 20px;
+}
+
+/* Fundo de Corações Flutuantes */
+.hearts-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.floating-heart {
+    position: absolute;
+    color: rgba(255, 42, 133, 0.3);
+    animation: floatUp 6s linear infinite;
+    bottom: -10vh;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) scale(0.6) rotate(0deg);
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(-110vh) scale(1.2) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Container Principal */
+.container {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 500px;
+    background: var(--card-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--border-color);
+    border-radius: 24px;
+    padding: 30px 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+/* Cabeçalho */
+.header .badge {
+    background: rgba(255, 42, 133, 0.15);
+    color: var(--secondary-pink);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.header h1 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 3.2rem;
+    margin: 10px 0 5px;
+    background: linear-gradient(45deg, #ff758c, #ff7eb3, #ffffff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 25px;
+}
+
+/* Galeria Estilo Polaroid / Carrossel */
+.gallery-section {
+    margin-bottom: 30px;
+}
+
+.photo-frame {
+    position: relative;
+    width: 100%;
+    height: 320px;
+    background: #1a102f;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 2px solid var(--border-color);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+.photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.photo-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(transparent, rgba(0,0,0,0.8));
+    padding: 15px 10px 10px;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+/* Botões de Navegação da Foto */
+.nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-btn:hover {
+    background: var(--primary-pink);
+}
+
+.nav-btn.prev { left: 10px; }
+.nav-btn.next { right: 10px; }
+
+/* Indicadores de Foto */
+.dots-container {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 12px;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: background 0.3s, width 0.3s;
+}
+
+.dot.active {
+    background: var(--primary-pink);
+    width: 20px;
+    border-radius: 4px;
+}
+
+/* Botão de Adicionar Foto */
+.upload-controls {
+    margin-top: 12px;
+}
+
+.btn-add-photo {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px dashed var(--secondary-pink);
+    color: var(--text-muted);
+    padding: 8px 16px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-add-photo:hover {
+    background: rgba(255, 42, 133, 0.2);
+    color: white;
+    border-color: var(--primary-pink);
+}
+
+/* Seção do Contador */
+.counter-section {
+    margin-bottom: 25px;
+}
+
+.counter-section h2 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: var(--text-muted);
+}
+
+.timer-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.time-box {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 12px 5px;
+    border-radius: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.time-box span {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+}
+
+.time-box small {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.time-box.highlight {
+    background: linear-gradient(135deg, rgba(255, 42, 133, 0.2), rgba(255, 117, 140, 0.2));
+    border-color: var(--primary-pink);
+    animation: pulseGlow 2s infinite;
+}
+
+@keyframes pulseGlow {
+    0% { box-shadow: 0 0 5px rgba(255, 42, 133, 0.3); }
+    50% { box-shadow: 0 0 15px rgba(255, 42, 133, 0.6); }
+    100% { box-shadow: 0 0 5px rgba(255, 42, 133, 0.3); }
+}
+
+.start-date-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 10px;
+    font-style: italic;
+}
+
+/* Carta de Amor */
+.love-letter {
+    background: rgba(255, 255, 255, 0.02);
+    border-left: 3px solid var(--primary-pink);
+    padding: 15px;
+    border-radius: 0 12px 12px 0;
+    text-align: left;
+    margin-bottom: 25px;
+}
+
+.love-letter h3 {
+    font-size: 0.95rem;
+    color: var(--secondary-pink);
+    margin-bottom: 5px;
+}
+
+.love-letter p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+/* Painel de Configuração */
+.footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 15px;
+}
+
+.btn-config {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.btn-config:hover {
+    color: white;
+}
+
+.config-panel {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 15px;
+    border-radius: 12px;
+}
+
+.config-panel.hidden {
+    display: none;
+}
+
+.config-panel input, .config-panel textarea {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 10px;
+    border-radius: 8px;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.85rem;
+}
+
+.config-panel label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-align: left;
+}
+
+.btn-save {
+    background: var(--primary-pink);
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+.btn-save:hover {
+    opacity: 0.9;
+}
