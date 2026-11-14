@@ -1,26 +1,30 @@
-// --- CONFIGURAÇÃO INICIAL (Você pode alterar a data de início aqui ou direto no site) ---
-let startDate = "2024-06-12T00:00:00"; // Altere para a data de vocês (Ano-Mês-DiaTHH:mm:ss)
+// --- CONFIGURAÇÃO INICIAL ---
+let startDate = "2024-06-12T00:00:00"; // Altere para a data de vocês
 let coupleNames = "Marcelo & Meu Amor";
 let customMessage = "Desde que você entrou na minha vida, os dias ganharam mais cor e o tempo passou a fazer sentido. Que esse contador nunca pare de crescer, porque é ao seu lado que eu quero passar todos os meus segundos.";
 
-// Lista inicial de fotos (fotos românticas padrão do Unsplash, você pode adicionar as suas)
-let photos = [
-    { url: "https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=800&q=80", caption: "Nosso começo ❤️" },
-    { url: "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=800&q=80", caption: "Momentos inesquecíveis ✨" },
-    { url: "https://images.unsplash.com/photo-1494774157365-9e04c6720e47?auto=format&fit=crop&w=800&q=80", caption: "Para todo sempre 💍" }
-];
+// Lista de fotos limpa (começa vazia para você colocar apenas as de vocês)
+let photos = [];
 
 let currentPhotoIndex = 0;
 
-// --- CARREGAR DADOS SALVOS NO NAVEGADOR (Se houver) ---
+// --- CARREGAR DADOS SALVOS NO NAVEGADOR ---
 window.addEventListener('DOMContentLoaded', () => {
     if (localStorage.getItem('startDate')) startDate = localStorage.getItem('startDate');
     if (localStorage.getItem('coupleNames')) coupleNames = localStorage.getItem('coupleNames');
     if (localStorage.getItem('customMessage')) customMessage = localStorage.getItem('customMessage');
+    
     if (localStorage.getItem('savedPhotos')) {
         try {
             photos = JSON.parse(localStorage.getItem('savedPhotos'));
         } catch(e) {}
+    }
+
+    // Se ainda não tiver nenhuma foto salva, colocamos uma mensagem padrão ou aguardamos o upload
+    if (photos.length === 0) {
+        photos = [
+            { url: "https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=800&q=80", caption: "Clique em 'Adicionar Foto' abaixo para colocar a primeira foto de vocês ❤️" }
+        ];
     }
 
     // Aplicar nos campos
@@ -51,9 +55,7 @@ function updateCounter() {
     const secondsTotal = Math.floor(diff / 1000);
     const minutesTotal = Math.floor(secondsTotal / 60);
     const hoursTotal = Math.floor(minutesTotal / 60);
-    const daysTotal = Math.floor(hoursTotal / 24);
 
-    // Cálculo aproximado de anos e meses
     const startDateObj = new Date(startDate);
     const nowDateObj = new Date();
 
@@ -136,6 +138,11 @@ function prevPhoto() {
 function handlePhotoUpload(event) {
     const files = event.target.files;
     if (!files || files.length === 0) return;
+
+    // Se a única foto presente for a instrução padrão, removemos ela ao adicionar a primeira foto real
+    if (photos.length === 1 && photos[0].caption.includes("Clique em 'Adicionar Foto'")) {
+        photos = [];
+    }
 
     for (let file of files) {
         const reader = new FileReader();
