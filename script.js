@@ -1,39 +1,31 @@
-// --- CONFIGURAÇÃO INICIAL ---
-let startDate = "2024-06-12T00:00:00"; // Altere para a data de vocês
-let coupleNames = "Marcelo & Meu Amor";
-let customMessage = "Desde que você entrou na minha vida, os dias ganharam mais cor e o tempo passou a fazer sentido. Que esse contador nunca pare de crescer, porque é ao seu lado que eu quero passar todos os meus segundos.";
+// --- CONFIGURAÇÃO OFICIAL PARA A STHEFANY ---
+let startDate = "2026-07-27T00:00:00"; 
+let coupleNames = "Marcelo & Sthefany";
+let customMessage = "Sthefany, construir meus dias ao seu lado é a melhor escolha que eu poderia ter feito. Cada segundo com você me dá certeza de que a vida é muito melhor compartilhada. Fiz cada detalhe deste cantinho pensando em nós, para que o tempo pare e a gente lembre sempre do quanto a nossa história é especial.";
 
-// Lista de fotos limpa (começa vazia para você colocar apenas as de vocês)
-let photos = [];
+// FOTO OFICIAL DO CASAL
+// Dica: Para colocar a foto de vocês, basta subir uma foto chamada 'foto.jpg' 
+// no mesmo repositório do GitHub ou colar o link direto de uma foto de vocês aqui embaixo.
+let photos = [
+    { url: "foto.jpg", caption: "Nosso amor, nossa história ❤️" }
+];
 
 let currentPhotoIndex = 0;
 
-// --- CARREGAR DADOS SALVOS NO NAVEGADOR ---
+// --- CARREGAR DADOS ---
 window.addEventListener('DOMContentLoaded', () => {
+    // Se você personalizou algo no seu celular antes, ele mantém, senão assume os dados oficiais acima
     if (localStorage.getItem('startDate')) startDate = localStorage.getItem('startDate');
     if (localStorage.getItem('coupleNames')) coupleNames = localStorage.getItem('coupleNames');
     if (localStorage.getItem('customMessage')) customMessage = localStorage.getItem('customMessage');
     
-    if (localStorage.getItem('savedPhotos')) {
-        try {
-            photos = JSON.parse(localStorage.getItem('savedPhotos'));
-        } catch(e) {}
-    }
-
-    // Se ainda não tiver nenhuma foto salva, colocamos uma mensagem padrão ou aguardamos o upload
-    if (photos.length === 0) {
-        photos = [
-            { url: "https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=800&q=80", caption: "Clique em 'Adicionar Foto' abaixo para colocar a primeira foto de vocês ❤️" }
-        ];
-    }
-
-    // Aplicar nos campos
+    // Aplicar nos campos da página
     document.getElementById('couple-names').innerText = coupleNames;
     document.getElementById('love-message').innerText = customMessage;
     document.getElementById('input-names').value = coupleNames;
     document.getElementById('input-message').value = customMessage;
     
-    // Formatar data para o input datetime-local
+    // Formatar data para o input
     const dtLocal = new Date(startDate);
     document.getElementById('input-date').value = dtLocal.toISOString().slice(0, 16);
     document.getElementById('start-date-text').innerText = `Desde ${dtLocal.toLocaleDateString('pt-BR')} às ${dtLocal.toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'})}`;
@@ -50,7 +42,16 @@ function updateCounter() {
     const now = new Date().getTime();
     const diff = now - start;
 
-    if (diff < 0) return;
+    if (diff < 0) {
+        // Se a data for no futuro (contagem regressiva ou recém iniciada)
+        document.getElementById('years').innerText = 0;
+        document.getElementById('months').innerText = 0;
+        document.getElementById('days').innerText = 0;
+        document.getElementById('hours').innerText = "00";
+        document.getElementById('minutes').innerText = "00";
+        document.getElementById('seconds').innerText = "00";
+        return;
+    }
 
     const secondsTotal = Math.floor(diff / 1000);
     const minutesTotal = Math.floor(secondsTotal / 60);
@@ -134,15 +135,10 @@ function prevPhoto() {
     renderPhoto();
 }
 
-// Adicionar foto direto pelo celular/PC
+// Adicionar mais fotos se quiser direto pelo site
 function handlePhotoUpload(event) {
     const files = event.target.files;
     if (!files || files.length === 0) return;
-
-    // Se a única foto presente for a instrução padrão, removemos ela ao adicionar a primeira foto real
-    if (photos.length === 1 && photos[0].caption.includes("Clique em 'Adicionar Foto'")) {
-        photos = [];
-    }
 
     for (let file of files) {
         const reader = new FileReader();
@@ -151,7 +147,6 @@ function handlePhotoUpload(event) {
                 url: e.target.result,
                 caption: "Nossos momentos juntos ✨"
             });
-            localStorage.setItem('savedPhotos', JSON.stringify(photos));
             currentPhotoIndex = photos.length - 1;
             renderPhoto();
             renderDots();
