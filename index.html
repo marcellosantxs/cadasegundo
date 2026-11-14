@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cada Segundo ao Seu Lado ❤️</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Fontes românticas e modernas do Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Fundo animado de corações -->
+    <div class="hearts-container" id="hearts-container"></div>
+
+    <main class="container">
+        <!-- Cabeçalho -->
+        <header class="header">
+            <span class="badge">✨ Nossa História ✨</span>
+            <h1 id="couple-names">Você & Eu</h1>
+            <p class="subtitle">Cada segundo ao seu lado é o meu momento favorito.</p>
+        </header>
+
+        <!-- Galeria de Fotos Interativa -->
+        <section class="gallery-section">
+            <div class="photo-frame" id="photo-frame">
+                <img id="current-photo" src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=800&q=80" alt="Nossa Foto">
+                <div class="photo-caption" id="photo-caption">Nosso começo ❤️</div>
+                
+                <!-- Controles do Carrossel -->
+                <button class="nav-btn prev" onclick="prevPhoto()">&#10094;</button>
+                <button class="nav-btn next" onclick="nextPhoto()">&#10095;</button>
+            </div>
+
+            <!-- Indicadores (bolinhas) -->
+            <div class="dots-container" id="dots-container"></div>
+
+            <!-- Botão para adicionar novas fotos direto pelo site -->
+            <div class="upload-controls">
+                <label for="photo-upload" class="btn-add-photo">
+                    📸 Adicionar Foto Nossa
+                </label>
+                <input type="file" id="photo-upload" accept="image/*" multiple onchange="handlePhotoUpload(event)" hidden>
+            </div>
+        </section>
+
+        <!-- Contador em Tempo Real -->
+        <section class="counter-section">
+            <h2>Juntos há exatamente:</h2>
+            <div class="timer-grid">
+                <div class="time-box">
+                    <span id="years">0</span>
+                    <small>Anos</small>
+                </div>
+                <div class="time-box">
+                    <span id="months">0</span>
+                    <small>Meses</small>
+                </div>
+                <div class="time-box">
+                    <span id="days">0</span>
+                    <small>Dias</small>
+                </div>
+                <div class="time-box">
+                    <span id="hours">00</span>
+                    <small>Horas</small>
+                </div>
+                <div class="time-box">
+                    <span id="minutes">00</span>
+                    <small>Minutos</small>
+                </div>
+                <div class="time-box highlight">
+                    <span id="seconds">00</span>
+                    <small>Segundos</small>
+                </div>
+            </div>
+            <p class="start-date-label" id="start-date-text">Desde o dia em que tudo começou...</p>
+        </section>
+
+        <!-- Declaração / Carta de Amor -->
+        <section class="love-letter">
+            <h3>Para o amor da minha vida 💌</h3>
+            <p id="love-message">
+                "Desde que você entrou na minha vida, os dias ganharam mais cor e o tempo passou a fazer sentido. Que esse contador nunca pare de crescer, porque é ao seu lado que eu quero passar todos os meus segundos."
+            </p>
+        </section>
+
+        <!-- Botão de Personalização Rápida (Data e Nomes) -->
+        <footer class="footer">
+            <button class="btn-config" onclick="toggleConfig()">⚙️ Personalizar Data e Nomes</button>
+            
+            <div class="config-panel hidden" id="config-panel">
+                <input type="text" id="input-names" placeholder="Ex: Marcelo & Amor">
+                <label>Data e hora que começaram:</label>
+                <input type="datetime-local" id="input-date">
+                <textarea id="input-message" rows="3" placeholder="Escreva uma mensagem especial..."></textarea>
+                <button class="btn-save" onclick="saveSettings()">Salvar Alterações ❤️</button>
+            </div>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
